@@ -11,11 +11,15 @@ import java.time.LocalDateTime;
 @Service
 public class IPricesServiceImpl implements IPricesService {
 
+    private IPricesRepository iPricesRepository;
+
     @Autowired
-    private IPricesRepository pricesRepository;
+    public IPricesServiceImpl(IPricesRepository iPricesRepository){
+        this.iPricesRepository = iPricesRepository;
+    }
 
     @Override
     public Prices getPricing(Long productId, Long brandId, LocalDateTime date) {
-        return pricesRepository.findPricesByDate(productId, brandId, Timestamp.valueOf(date));
+        return iPricesRepository.findPricesByDate(productId, brandId, Timestamp.valueOf(date));
     }
 }
