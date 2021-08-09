@@ -35,8 +35,8 @@ public class SwaggerConfig {
                 "Order Service API",
                 "Order Service API Description",
                 "1.0",
-                "http://codmind.com/terms",
-                new Contact("Codmind", "https://codmind.com", "apis@codmind.com"),
+                "http://zara.com/terms",
+                new Contact("Zara", "https://zara.com", "apis@zara.com"),
                 "LICENSE",
                 "LICENSE URL",
                 Collections.emptyList()
