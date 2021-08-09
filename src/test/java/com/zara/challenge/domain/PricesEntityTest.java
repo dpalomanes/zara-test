@@ -1,8 +1,5 @@
-package com.zara.challenge.unit.domain;
+package com.zara.challenge.domain;
 
-import com.zara.challenge.domain.Brand;
-import com.zara.challenge.domain.Prices;
-import com.zara.challenge.domain.Product;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -21,13 +18,20 @@ public class PricesEntityTest {
 
     @Test
     public void savePrice() {
+        Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now());
         Product product = new Product("shirt");
         Brand brand = new Brand("zara");
-        Prices prices = new Prices(product, brand, Timestamp.valueOf(LocalDateTime.now()), Timestamp.valueOf(LocalDateTime.now()), 12345L, 0, 25.9, "EUR");
+        Prices prices = new Prices(product, brand, timestamp, timestamp, 12345L, 0, 25.9, "EUR");
         this.entityManager.persistAndFlush(product);
         this.entityManager.persistAndFlush(brand);
         Prices savedPriceData = this.entityManager.persistAndFlush(prices);
+        assertEquals(savedPriceData.getProduct().getName(), "shirt");
+        assertEquals(savedPriceData.getBrand().getName(), "zara");
+        assertEquals(savedPriceData.getStartDate(), timestamp);
+        assertEquals(savedPriceData.getEndDate(), timestamp);
+        assertEquals(savedPriceData.getPriceList(), 12345L);
+        assertEquals(savedPriceData.getPriority(), 0);
         assertEquals(savedPriceData.getPrice(), 25.9);
-
+        assertEquals(savedPriceData.getCurrency(), "EUR");
     }
 }
