@@ -1,4 +1,4 @@
-package com.zara.challenge.exceptions;
+package com.zara.challenge.unit.exceptions;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -11,8 +11,12 @@ import static org.junit.jupiter.api.Assertions.*;
 @JsonTest
 class ResponseJsonSerializerTest {
 
-    @Autowired
     private ObjectMapper objectMapper;
+
+    @Autowired
+    public ResponseJsonSerializerTest(ObjectMapper objectMapper){
+        this.objectMapper = objectMapper;
+    }
 
     @Test
     public void testSerialization() throws JsonProcessingException {

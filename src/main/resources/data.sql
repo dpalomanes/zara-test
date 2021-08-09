@@ -1,3 +1,14 @@
+insert into product (name)
+values
+('shoes'),
+('shirt'),
+('skirt'),
+('dress');
+
+insert into brand (name)
+values
+('zara');
+
 insert into prices (product_id, brand_id, start_date, end_date, price_list, priority, price, currency)
 values
 (1, 1, '2020-06-14 00:00:00', '2020-12-31 23:59:59', 35455, 0, 35.50, 'EUR'),

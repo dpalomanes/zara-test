@@ -2,12 +2,14 @@ package com.zara.challenge.controllers;
 
 import com.zara.challenge.domain.Prices;
 import com.zara.challenge.services.IPricesService;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -21,7 +23,7 @@ public class PricesController {
      }
 
     @GetMapping("/product/{product_id}/brand/{brand_id}/pricing")
-    public Map getPricing(@PathVariable(value = "product_id") String pid, @PathVariable(value = "brand_id") String bid, @RequestParam String date){
+    public Map getPricing(@PathVariable(value = "product_id") String pid, @PathVariable(value = "brand_id") String bid, @RequestParam String date) throws NotFoundException {
         Long productId;
         Long brandId;
         LocalDateTime localDate;
@@ -30,8 +32,7 @@ public class PricesController {
         brandId = Long.parseLong(bid);
         localDate = LocalDateTime.parse(date, DateTimeFormatter.ofPattern(Prices.LOCAL_DATE_FORMAT));
 
-        Prices prices = iPricesService.getPricing(productId, brandId, localDate);
+        return iPricesService.getPricing(productId, brandId, localDate).getDto();
 
-        return prices.getDto();
     }
 }

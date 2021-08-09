@@ -1,4 +1,4 @@
-package com.zara.challenge.exceptions;
+package com.zara.challenge.unit.exceptions;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
