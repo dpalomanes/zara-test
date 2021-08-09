@@ -1,5 +1,6 @@
 package com.zara.challenge.domain;
 
+import com.zara.challenge.dto.PricesDto;
 import lombok.Getter;
 import org.springframework.stereotype.Component;
 
@@ -44,7 +45,8 @@ public class Prices {
     @Column(nullable = false)
     String currency;
 
-    public Prices() {}
+    public Prices() {
+    }
 
     public Prices(Product product, Brand brand, Timestamp startDate, Timestamp endDate, Long priceList, Integer priority, Double price, String currency) {
         this.product = product;
@@ -57,18 +59,18 @@ public class Prices {
         this.currency = currency;
     }
 
-    public Map getDto() {
-        Map response = new HashMap<String, String>();
-        response.put("product_id", String.valueOf(this.product.id));
-        response.put("brand_id", String.valueOf(this.brand.id));
-        response.put("price_list", String.valueOf(this.priceList));
-        response.put("start_date", DateTimeFormatter.ofPattern(LOCAL_DATE_FORMAT).format(LocalDateTime.ofInstant(this.startDate.toInstant(), ZoneId.systemDefault())));
-        response.put("end_date", DateTimeFormatter.ofPattern(LOCAL_DATE_FORMAT).format(LocalDateTime.ofInstant(this.endDate.toInstant(), ZoneId.systemDefault())));
-        response.put("price", this.price);
-        response.put("currency", this.currency);
-        response.put("priority", this.priority);
+    public PricesDto getDto() {
+        PricesDto pricesDto = new PricesDto(
+                this.product.id,
+                this.brand.id,
+                DateTimeFormatter.ofPattern(LOCAL_DATE_FORMAT).format(LocalDateTime.ofInstant(this.startDate.toInstant(), ZoneId.systemDefault())),
+                DateTimeFormatter.ofPattern(LOCAL_DATE_FORMAT).format(LocalDateTime.ofInstant(this.endDate.toInstant(), ZoneId.systemDefault())),
+                this.priceList,
+                this.priority,
+                this.price,
+                this.currency
+                );
 
-        return response;
+        return pricesDto;
     }
-
 }
