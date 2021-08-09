@@ -1,4 +1,4 @@
-package com.zara.challenge.unit.exceptions;
+package com.zara.challenge.exceptions;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

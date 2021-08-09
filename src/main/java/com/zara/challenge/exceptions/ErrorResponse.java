@@ -1,4 +1,4 @@
-package com.zara.challenge.unit.exceptions;
+package com.zara.challenge.exceptions;
 
 public class ErrorResponse {
     private int status;

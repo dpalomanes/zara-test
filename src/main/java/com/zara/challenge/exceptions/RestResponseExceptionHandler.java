@@ -1,4 +1,4 @@
-package com.zara.challenge.unit.exceptions;
+package com.zara.challenge.exceptions;
 
 import javassist.NotFoundException;
 import org.springframework.http.HttpHeaders;
@@ -10,6 +10,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.time.format.DateTimeParseException;
+import java.util.NoSuchElementException;
 
 
 @ControllerAdvice
@@ -32,6 +33,13 @@ public class RestResponseExceptionHandler extends ResponseEntityExceptionHandler
     @ExceptionHandler(value = {NotFoundException.class})
     public ResponseEntity<Object> handleNotFoundException(NotFoundException ex, WebRequest request){
         String message = "The price for the product in the selected date could not be found.";
+        ErrorResponse errorResponse = new ErrorResponse(HttpStatus.NOT_FOUND.value(), message);
+        return handleExceptionInternal(ex, errorResponse, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+    }
+
+    @ExceptionHandler(value = {NoSuchElementException.class})
+    public ResponseEntity<Object> handleNotFoundException(NoSuchElementException ex, WebRequest request){
+        String message = "More than one price found for the given parameters with the same priority.";
         ErrorResponse errorResponse = new ErrorResponse(HttpStatus.NOT_FOUND.value(), message);
         return handleExceptionInternal(ex, errorResponse, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
     }
